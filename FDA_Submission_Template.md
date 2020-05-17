@@ -22,7 +22,7 @@ Minimum computer specification for the software is 2-core CPU, 16 GB RAM and  32
 
 **Clinical Impact of Performance:**
 
-The algorithm was designed to have higher recall which means there may be more false positive.
+The algorithm was designed to have higher recall which means there may be more false positive. This means it is more likely for the algorithm to classify a non-pneumonia xray image as containing pneumonia. The algorithm can also produce false negative result where xray image with pneumonia may be classified as not having pneumonia.  
 
 ### 2. Algorithm Design and Function
 
@@ -59,7 +59,7 @@ The base network is Resnet50 pre-trained on Imagenet data, followed by:
 ### 3. Algorithm Training
 
 **Parameters:**
-* Types of augmentation used during training
+* Types of augmentation used during training, applied only to training dataset
 
   * random height shift of up to +-15% of images height
   * random width shift of up to +-15% of images height
@@ -116,9 +116,21 @@ The dataset is obtained from [kaggle website](https://www.kaggle.com/nih-chest-x
 - Mass
 - Hernia 
 
+Below is the distribution of diseases in the dataset. Please note that they are not mutually exclusive, meaning one patient can have multiple diseases labelled for a x-ray image.
+
+![](/home/soon/github/AIHCND_C2_Starter/images/disease_dist.png)
+
+
+
+Age distribution for people with and without pneumonia
+
+![](/home/soon/github/AIHCND_C2_Starter/images/age.png)
+
+There are total of 1431 samples with pneumonia and 110689 samples without pneumonia in the dataset. Age distribution of dataset is 56.5% male and 43.5% female.
+
 **Description of Training Dataset:** 
 
-Validation is a 89696 samples contain 50% true positive and 50% true negative which are sampled with replacement from dataset excluding validation dataset.
+Validation is a 89696 samples contain 50%  positive cases of pneumonia and 50% cases with no pneumonia but may or not may not include other diseases.  This is sampled with replacement from dataset excluding validation dataset.
 
 **Description of Validation Dataset:**
 
@@ -133,11 +145,11 @@ Validation is a 22424 samples which contain 1.27% of true positive.
 
 **Patient Population Description for FDA Validation Dataset:**
 
-Men and women distributed between the age of 1 and 100 .
+The sample population should be taken from men and women distributed between the age of 1 and 100 . Image modality shall be Xray image showing chest in both front and back views. The sample can include people with or without prio diagnosis of pneumonia and other lung diseases.
 
 **Ground Truth Acquisition Methodology:**
 
-X-ray images validated by radiologists.
+X-ray images validated by at least 3 different radiologists.
 
 **Algorithm Performance Standard:**
 
